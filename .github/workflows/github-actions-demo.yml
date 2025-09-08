@@ -18,7 +18,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Make the model
-      - run: cd TP1 && python train_model.py
+        un: cd TP1 && python train_model.py
 
       - name: Build Docker image
         run: cd TP1 && docker build --tag my_app .
