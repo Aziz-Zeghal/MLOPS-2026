@@ -18,7 +18,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
-        run: docker build --tag my_app .
+        run: cd TP1 && docker build --tag my_app .
 
       - name: Show built images
         run: docker images
