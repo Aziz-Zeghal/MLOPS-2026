@@ -20,3 +20,13 @@ fastapi run model_fastapi.py --port 9000
 
 ### Level 0.5 (on a remote machine)
 Use the same command after ssh on a machine.
+
+### Level 1 (on your local machine)
+
+```bash
+docker build --tag my_app .
+docker run -p 9000:9000 my_app
+```
+
+### Level 2 - Deploy the container in a cloud virtual machine
+Use the same commands after ssh on a cloud VM.
