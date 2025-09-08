@@ -1,15 +1,14 @@
-# MLOPS-2026 Mini project 1
+# MLOPS-2026
 
-## 2. Using a ML model in streamlit
-Run the streamlit with this command:
+This repository contains code and resources for the MLOPS course in Epita.
+
+## Setup
+To use a conda env, do the following:
 ```bash
-streamlit run model_app.py
+conda env create -f conda_env.yaml
 ```
 
-## 3. A machine learning model in a web service mini project
-
-### Level 0 (on your local machine) 
-Use this command:
+To export the env use:
 ```bash
-fastapi run model_fastapi.py  
+conda env export > conda_env.yaml
 ```
