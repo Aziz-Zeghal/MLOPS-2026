@@ -19,6 +19,12 @@ fastapi run model_fastapi.py --port 9000
 ```
 
 ### Level 0.5 (on a remote machine)
+Make a venv:
+```bash
+python -m venv model_env
+source model_env/bin/activate
+pip install -r requirements.txt
+```
 Use the same command after ssh on a machine.
 
 ### Level 1 (on your local machine)
