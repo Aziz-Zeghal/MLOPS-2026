@@ -17,3 +17,6 @@ Use this command:
 ```bash
 fastapi run model_fastapi.py --port 9000
 ```
+
+### Level 0.5 (on a remote machine)
+Use the same command after ssh on a machine.
