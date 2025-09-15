@@ -14,6 +14,6 @@ COPY . .
 # Copy model file
 COPY src/regression.joblib ./
 
-EXPOSE 9000
+EXPOSE 5000
 
-CMD ["fastapi", "run", "src/model_fastapi.py",  "--port", "9000"]
+CMD ["fastapi", "run", "src/model_fastapi.py",  "--port", "5000"]
