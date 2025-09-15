@@ -47,19 +47,13 @@ jobs:
           sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.VM_HOST }} << EOF
           set -e
 
-          # 1. Make sure az directory exists
-          mkdir -p ~/az
+          # Remove previous folder and clone fresh
+          rm -rf ~/az
+          git clone https://github.com/$REPO.git ~/az
           cd ~/az
+          git checkout $BRANCH
 
-          # 2. Pull repository (clone if missing, otherwise update)
-          if [ ! -d ".git" ]; then
-            git clone https://github.com/$REPO.git .
-          else
-            git fetch origin
-            git reset --hard origin/$BRANCH
-          fi
-
-          # 3. Pull & run the Docker image
+          # Pull & run the Docker image
           IMAGE_NAME=ghcr.io/$OWNER/my_app:latest
           echo "Pulling latest image \$IMAGE_NAME"
           docker login ghcr.io -u "$ACTOR" -p "${{ secrets.DOCKER_SECRET }}"
