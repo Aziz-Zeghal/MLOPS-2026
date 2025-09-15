@@ -36,7 +36,7 @@ jobs:
     steps:
       - name: Deploy to remote VM
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.VM_HOST }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.VM_ADDRESS }} << 'EOF'
           set -e
 
           # 1. Make sure az directory exists
