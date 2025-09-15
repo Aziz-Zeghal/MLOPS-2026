@@ -35,11 +35,16 @@ jobs:
     needs: Build-Docker-Image
     steps:
       - name: Install SSH client
-        run: sudo apt-get update && sudo apt-get install -y openssh-client
+        run: sudo apt-get update && sudo apt-get install -y sshpass
 
       - name: Deploy to remote VM
         run: |
-          sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.VM_HOST }} << 'EOF'
+          REPO=${GITHUB_REPOSITORY}
+          BRANCH=${GITHUB_REF_NAME}
+          ACTOR=${GITHUB_ACTOR,,}
+          OWNER=${GITHUB_REPOSITORY_OWNER,,}
+
+          sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.VM_HOST }} << EOF
           set -e
 
           # 1. Make sure az directory exists
@@ -48,18 +53,18 @@ jobs:
 
           # 2. Pull repository (clone if missing, otherwise update)
           if [ ! -d ".git" ]; then
-            git clone https://github.com/Aziz-Zeghal/MLOPS-2026.git
+            git clone https://github.com/$REPO.git .
           else
             git fetch origin
-            git reset --hard origin/${GITHUB_REF_NAME}
+            git reset --hard origin/$BRANCH
           fi
 
           # 3. Pull & run the Docker image
-          IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/my_app:latest
-          echo "Pulling latest image $IMAGE_NAME"
-          docker login ghcr.io -u "${GITHUB_ACTOR,,}" -p "${{ secrets.DOCKER_SECRET }}"
-          docker pull $IMAGE_NAME
+          IMAGE_NAME=ghcr.io/$OWNER/my_app:latest
+          echo "Pulling latest image \$IMAGE_NAME"
+          docker login ghcr.io -u "$ACTOR" -p "${{ secrets.DOCKER_SECRET }}"
+          docker pull \$IMAGE_NAME
           docker stop my_app || true
           docker rm my_app || true
-          docker run -d --name my_app -p 80:80 $IMAGE_NAME
+          docker run -d --name my_app -p 80:80 \$IMAGE_NAME
           EOF
