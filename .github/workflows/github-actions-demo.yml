@@ -29,7 +29,6 @@ jobs:
           cd TP1
           IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/my_app:latest
           docker build --tag $IMAGE_NAME .
-          docker push $IMAGE_NAME
 
   Deploy:
     runs-on: ubuntu-latest
@@ -41,6 +40,20 @@ jobs:
           username: ${{ secrets.VM_ADDRESS }}
           password: ${{ secrets.VM_PASSWORD }}
           script: |
+            set -e
+            # 1. Make sure az directory exists
+            mkdir -p ~/az
+            cd ~/az
+
+            # 2. Pull repository (clone if missing, otherwise update)
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/${GITHUB_REPOSITORY}.git .
+            else
+              git fetch origin
+              git reset --hard origin/${GITHUB_REF_NAME}
+            fi
+
+            # 3. Pull & run the Docker image
             IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/my_app:latest
             echo "Pulling latest image $IMAGE_NAME"
             docker login ghcr.io -u "${GITHUB_ACTOR,,}" -p "${{ secrets.DOCKER_SECRET }}"
