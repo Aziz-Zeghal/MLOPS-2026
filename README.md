@@ -12,3 +12,5 @@ To export the env use:
 ```bash
 conda env export > conda_env.yaml
 ```
+
+All work uses the same conda env.
