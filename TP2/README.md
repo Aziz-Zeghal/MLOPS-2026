@@ -2,6 +2,8 @@
 
 This project demonstrates how to train, track, and deploy a wine quality prediction model using MLflow and FastAPI.
 
+# Setup and launch
+
 ## 1. Set Up Conda Environment
 
 
@@ -51,7 +53,16 @@ Use the provided `test.py` script to:
 python test.py
 ```
 
-## 5. Project Structure
+## 5. Dockerization (Optional)
+To run the project using Docker, use the following commands:
+
+```bash
+docker compose down --volumes
+docker compose up --build
+```
+
+
+## Project Structure
 - `model_api.py`: FastAPI app and ML model logic
 - `train.py`: Model training and logging to MLflow
 - `env.py`: Environment variables and input schema
