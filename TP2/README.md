@@ -55,8 +55,8 @@ python test.py
 - `model_api.py`: FastAPI app and ML model logic
 - `train.py`: Model training and logging to MLflow
 - `env.py`: Environment variables and input schema
-- `example.json`: Example input for prediction
-- `test.py`: Script to test prediction and model update endpoints
+- `test/example.json`: Example input for prediction
+- `test/test_api.py`: Script to test prediction and model update endpoints
 - `data/wine_quality_merged.csv`: Dataset
 - `requirements.txt`: Python dependencies (for dockerization)
 - `conda_env.yaml`: Conda environment dump
