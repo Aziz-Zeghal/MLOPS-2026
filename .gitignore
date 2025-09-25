@@ -1,3 +1,6 @@
 __pycache__
 mlruns/
 mlartifacts/
+
+*html
+*h5
