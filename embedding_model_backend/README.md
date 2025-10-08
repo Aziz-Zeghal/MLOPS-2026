@@ -1,4 +1,4 @@
-# MLOPS-2026 Mini project 1
+# Embedding model backend
 First train the model:
 ```bash
 python train_model.py
